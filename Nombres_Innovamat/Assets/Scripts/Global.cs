@@ -5,8 +5,15 @@ using UnityEngine;
 public class Global : MonoBehaviour
 {
     private static Global instance;
-    
-    public static Global Instance
+
+    public Language currentLanguage;
+
+    void Awake() //Do not destroy this GameObject
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    public static Global Instance //Get the instance or Singleton
     {
         get { return instance ?? (instance = new GameObject("GlobalSingleton").AddComponent<Global>()); }
     }

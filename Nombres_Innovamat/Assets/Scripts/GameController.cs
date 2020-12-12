@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    private Language language = Language.CAT;
-
     private NumInfo currentNum;
     private List<NumInfo> nummeros;
 
@@ -27,7 +22,8 @@ public class GameController : MonoBehaviour
         encerts = 0;
         errors = 0;
 
-        LoadNumbers(language);
+        LoadNumbers();
+        UpdateResults();
         StartCoroutine(Global.Instance.CallFunctionAfterDelay(0.5f, GenerateTask)); //give time to read file
     }
 
@@ -147,9 +143,8 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void LoadNumbers(Language lang)
+    private void LoadNumbers()
     {
-        language = lang;
         nummeros = new List<NumInfo>();
 
         TextAsset fileData = Resources.Load<TextAsset>("numbersData"); //we load the csv as a TextAsset from the Resources folder
@@ -160,14 +155,14 @@ public class GameController : MonoBehaviour
         {
             string[] lineData = lines[x].Split (new char[] { ';' }); //we separate each data element or column
 
-            NumInfo number = new NumInfo { num = int.Parse(lineData[0]), text = lineData[(int)lang + 1] }; //we save the information at the nummeros list
+            NumInfo number = new NumInfo { num = int.Parse(lineData[0]), text = lineData[(int)Global.Instance.currentLanguage + 1] }; //we save the information at the nummeros list
             nummeros.Add(number);
         }           
     }
 
     private void UpdateResults() //[TO DO]: if we have more text this should be done through a translation csv
     {
-        switch (language)
+        switch (Global.Instance.currentLanguage)
         {
             case Language.CAT:
                 resultsText.text = "Encerts: " + encerts + "\nErrades: " + errors;
@@ -180,25 +175,5 @@ public class GameController : MonoBehaviour
                 break;
         }
         
-    }
-
-    public void ChangeLanguage(Language l)
-    {
-        language = l;
-
-        StopAllCoroutines(); //We stop possible coroutines
-
-        foreach (AnswerController answer in buttonAnswers)
-        {
-            answer.DisableButton(); //disable all buttons
-            answer.SetOriginalSize(); //hide all buttons
-        }
-        numText.SetOriginalSize(); //hide question text
-
-        encerts = 0; //reset score
-        errors = 0;
-
-        LoadNumbers(language); //load the numbers in new language
-        StartCoroutine(Global.Instance.CallFunctionAfterDelay(0.5f, GenerateTask)); //start again
     }
 }

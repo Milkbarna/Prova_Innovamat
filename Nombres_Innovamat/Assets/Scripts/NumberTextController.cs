@@ -29,12 +29,12 @@ public class NumberTextController : MonoBehaviour
     public void DisplayNumber(NumInfo info)
     {
         text.text = info.text;
-        StartCoroutine(anim.Execute(animLerp, 1, 2, 2, true, HideNumber));
+        StartCoroutine(anim.Execute(animLerp, new Vector3(1, 1, 1), 2, 2, true, HideNumber));
     }
 
     public void HideNumber()
     {
-        StartCoroutine(anim.Execute(animLerp, 1, 2, 0, false, gc.DisplayOptions));
+        StartCoroutine(anim.Execute(animLerp, new Vector3(1, 1, 1), 2, 0, false, gc.DisplayOptions));
     }
 
     public void SetOriginalSize()

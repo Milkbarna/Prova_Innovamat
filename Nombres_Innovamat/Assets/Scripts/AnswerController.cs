@@ -47,7 +47,7 @@ public class AnswerController : MonoBehaviour
 
         text.text = info.num.ToString();
         on = true;
-        StartCoroutine(anim.Execute(animLerp, 1, 1, 0, true, EnableButton));
+        StartCoroutine(anim.Execute(animLerp, new Vector3(1, 1, 1), 1, 0, true, EnableButton));
     }
 
     public void EnableButton()
@@ -66,7 +66,7 @@ public class AnswerController : MonoBehaviour
         {
             button.enabled = false;
             on = false;
-            StartCoroutine(anim.Execute(animLerp, 1, 1, 0, false, null));
+            StartCoroutine(anim.Execute(animLerp, new Vector3(1,1,1), 1, 0, false, null));
         }
         
     }

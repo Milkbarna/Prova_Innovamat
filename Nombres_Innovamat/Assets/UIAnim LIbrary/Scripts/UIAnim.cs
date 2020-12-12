@@ -8,5 +8,5 @@ public interface UIAnim
 {
     IEnumerator Execute();
 
-    IEnumerator Execute(AnimationCurve animCurve, float size, float duration, float delayAfter, bool forward, NextFunctionDelegate nextFunction);
+    IEnumerator Execute(AnimationCurve animCurve, Vector3 size, float duration, float delayAfter, bool forward, NextFunctionDelegate nextFunction);
 }

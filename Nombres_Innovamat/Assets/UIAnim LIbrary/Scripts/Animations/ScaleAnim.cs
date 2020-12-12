@@ -17,7 +17,7 @@ namespace Assets.UIAnim_LIbrary.Scripts.Animations
             yield return null;
         }
 
-        public IEnumerator Execute(AnimationCurve animCurve, float size, float duration, float delayAfter, bool forward, NextFunctionDelegate nextFunction)
+        public IEnumerator Execute(AnimationCurve animCurve, Vector3 size, float duration, float delayAfter, bool forward, NextFunctionDelegate nextFunction)
         {
             float time = 0;
 
@@ -39,7 +39,7 @@ namespace Assets.UIAnim_LIbrary.Scripts.Animations
                 }                    
                 
                 //we add to the original scale
-                rectTransform.localScale = initial + new Vector3 (curveVal * size, curveVal * size, curveVal * size);
+                rectTransform.localScale = initial + new Vector3 (curveVal * size.x, curveVal * size.y, curveVal * size.z);
 
                 yield return null;
             }
