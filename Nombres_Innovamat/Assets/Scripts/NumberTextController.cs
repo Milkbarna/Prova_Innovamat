@@ -12,12 +12,16 @@ public class NumberTextController : MonoBehaviour
     private UIAnim anim;
 
     private GameController gc;
+    private Vector3 originalScale;
 
     void Start()
     {
+        
         gc = FindObjectOfType<GameController>();
         text = this.GetComponent<Text>();
         rectTransform = this.GetComponent<RectTransform>();
+
+        originalScale = rectTransform.localScale;
 
         anim = new ScaleAnim(rectTransform);
     }
@@ -31,5 +35,10 @@ public class NumberTextController : MonoBehaviour
     public void HideNumber()
     {
         StartCoroutine(anim.Execute(animLerp, 1, 2, 0, false, gc.DisplayOptions));
+    }
+
+    public void SetOriginalSize()
+    {
+        rectTransform.localScale = originalScale;
     }
 }

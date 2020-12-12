@@ -21,6 +21,8 @@ public class AnswerController : MonoBehaviour
 
     private bool on;
 
+    private Vector3 originalScale;
+
     void Start()
     {
         gc = FindObjectOfType<GameController>();
@@ -30,6 +32,7 @@ public class AnswerController : MonoBehaviour
 
         button.enabled = false;
         image.color = Color.white;
+        originalScale = rectTransform.localScale;
 
         anim = new ScaleAnim(rectTransform);
 
@@ -42,7 +45,7 @@ public class AnswerController : MonoBehaviour
         button.enabled = false;
         image.color = Color.white;
 
-        text.text = info.text;
+        text.text = info.num.ToString();
         on = true;
         StartCoroutine(anim.Execute(animLerp, 1, 1, 0, true, EnableButton));
     }
@@ -81,5 +84,11 @@ public class AnswerController : MonoBehaviour
     public bool IsOn()
     {
         return on;
+    }
+
+    public void SetOriginalSize()
+    {
+        rectTransform.localScale = originalScale;
+        on = false;
     }
 }
