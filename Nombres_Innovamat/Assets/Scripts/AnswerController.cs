@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class AnswerController : MonoBehaviour
 {
     private Button button;
-    
+
+    [SerializeField]
     private GameController gc;
 
     [HideInInspector]
@@ -17,8 +18,6 @@ public class AnswerController : MonoBehaviour
 
     void Start()
     {
-        gc = FindObjectOfType<GameController>();
-
         button = this.GetComponent<Button>();
         view = this.GetComponent<NumberView>();
 

@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NumberTextController : MonoBehaviour
-{    
+{
+    [SerializeField]
     private GameController gc;
 
     private NumberView view;
 
     void Start()
     {        
-        gc = FindObjectOfType<GameController>();
         view = this.GetComponent<NumberView>();
     }
 
