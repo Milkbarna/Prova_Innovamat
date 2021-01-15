@@ -4,65 +4,36 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    private NumInfo currentNum;
-    private List<NumInfo> nummeros;
 
     [Header("UI Elems")]
     [SerializeField]
-    private Text resultsText;
+    private ScoreController score;
     [SerializeField]
     private NumberTextController numText;
     [SerializeField]
     private AnswerController[] buttonAnswers;
 
-    private int encerts, errors;
+    private FunctionCaller _functionCaller;
+    private TaskLogic _taskLogic;
 
     void Start()
     {
-        encerts = 0;
-        errors = 0;
+        _functionCaller = new FunctionCaller(); //[TO DO]: Avoid "new" (D in SOLID)
+        _taskLogic = new TaskLogic(); //[TO DO]: Avoid "new" (D in SOLID)
+        _taskLogic.LoadNumbers();
 
-        LoadNumbers();
-        UpdateResults();
-        StartCoroutine(Global.Instance.CallFunctionAfterDelay(0.5f, GenerateTask)); //give time to read file
+        StartCoroutine(_functionCaller.CallFunctionAfterDelay(0.5f, GenerateTask)); //give time to read file
     }
 
     public void GenerateTask()
     {
-        //control not to reapeat the same number twice in a row, can be repeated later
-        NumInfo newNum = GetNumber(); 
-        while (newNum.num == currentNum.num)
-            newNum = GetNumber();
-
-        currentNum = newNum;
-
         //Call animation to show and hide number        
-        numText.DisplayNumber(currentNum);
-    }
-
-    private NumInfo GetNumber() //Get one random number from nummeros
-    {
-        int randIndex = Random.Range(0, nummeros.Count);
-        return nummeros[randIndex];
+        numText.DisplayNumber(_taskLogic.GetTaskNum());
     }
 
     public void DisplayOptions()
     {
-        List<NumInfo> options = new List<NumInfo>();
-
-        //Generate random numbers different from current
-        options.Add(currentNum); //we add the correct answer to make sure we do not reapet it
-        while (options.Count < buttonAnswers.Length + 1) //loop until we have as many numbers as answer buttons + the control correct number
-        {
-            NumInfo n = GetNumber();
-            if (!Global.Instance.InList(options, n)) //We only add a number if it's not in the list
-                options.Add(n);
-        }
-        options.RemoveAt(0); //remove the correct answer from the first position
-
-        //Set one random option to the correct number
-        int randIndex = Random.Range(0, options.Count);
-        options[randIndex] = currentNum;
+        List<NumInfo> options = _taskLogic.GetOptions(buttonAnswers.Length + 1);
 
         //Add options to buttons
         for (int i = 0; i< buttonAnswers.Length; i++)
@@ -73,21 +44,13 @@ public class GameController : MonoBehaviour
 
     public void Answer(AnswerController button)
     {
-        //Disable answers
-        foreach (AnswerController answer in buttonAnswers)
-        {
-            answer.DisableButton();
-        }
+        DisableAllAnswers();
 
         //Check if it's correct
-        if (button.num.num == currentNum.num)
+        if (_taskLogic.isCorrect(button.num))
         {
-            //paint green
-            button.DisplayColor(Color.green);
-
-            //add encert
-            encerts++;
-            UpdateResults();
+            button.DisplayAsCorrect();
+            score.AddCorrect();
 
             foreach (AnswerController answer in buttonAnswers)
             {
@@ -95,85 +58,55 @@ public class GameController : MonoBehaviour
             }
 
             //generate the next taks after a short delay
-            StartCoroutine(Global.Instance.CallFunctionAfterDelay(1.2f, GenerateTask));
+            StartCoroutine(_functionCaller.CallFunctionAfterDelay(1.2f, GenerateTask));
         }
         else
         {
-            //paint red
-            button.DisplayColor(Color.red);
+            button.DisplayAsError();
+            score.AddError();
 
-            //add error
-            errors++;
-            UpdateResults();
+            List<AnswerController> aviableAnswers = AviableAnswers();
 
-            button.HideNumber();
-
-            //check how many answers are left
-            int aviableAnswers = 0;
-            AnswerController lastAnswer = null;
-            foreach (AnswerController answer in buttonAnswers)
+            if (aviableAnswers.Count == 1) //if there is only one answer left reaveal it and hide it
             {
-                if (answer.IsOn())
-                {
-                    aviableAnswers++;
-                    lastAnswer = answer;
-                }
-                    
-            }
-
-            if (aviableAnswers == 1) //if there is only one answer left reaveal it and hide it
-            {
-                if (lastAnswer != null)
-                    lastAnswer.DisplayColor(Color.green);
-
-                lastAnswer.HideNumber();
+                if (aviableAnswers[0] != null)
+                    aviableAnswers[0].DisplayAsCorrect();
 
                 //generate the next taks after a short delay
-                StartCoroutine(Global.Instance.CallFunctionAfterDelay(1.2f, GenerateTask));
+                StartCoroutine(_functionCaller.CallFunctionAfterDelay(1.2f, GenerateTask));
             }
             else
             {
-                foreach (AnswerController answer in buttonAnswers)
-                {
-                    if (answer.IsOn())
-                        StartCoroutine(Global.Instance.CallFunctionAfterDelay(1, answer.EnableButton));
-                }
+                StartCoroutine(_functionCaller.CallFunctionAfterDelay(1, EnableAllAnswers));
             }
 
         }
     }
 
-    private void LoadNumbers()
+    private void DisableAllAnswers()
     {
-        nummeros = new List<NumInfo>();
-
-        TextAsset fileData = Resources.Load<TextAsset>("numbersData"); //we load the csv as a TextAsset from the Resources folder
-        
-        string[] lines = fileData.text.Split( new char[] { '\n' }); //separate the text into lines
-
-        for (int x = 1; x < lines.Length-1; x++) //we skip the first line (headers)
+        foreach (AnswerController answer in buttonAnswers)
         {
-            string[] lineData = lines[x].Split (new char[] { ';' }); //we separate each data element or column
-
-            NumInfo number = new NumInfo { num = int.Parse(lineData[0]), text = lineData[(int)Global.Instance.currentLanguage + 1] }; //we save the information at the nummeros list
-            nummeros.Add(number);
-        }           
+            answer.DisableButton();
+        }
     }
 
-    private void UpdateResults() //[TO DO]: if we have more text this should be done through a translation csv
+    private void EnableAllAnswers()
     {
-        switch (Global.Instance.currentLanguage)
+        foreach (AnswerController answer in buttonAnswers)
         {
-            case Language.CAT:
-                resultsText.text = "Encerts: " + encerts + "\nErrades: " + errors;
-                break;
-            case Language.ENG:
-                resultsText.text = "Right: " + encerts + "\nWrong: " + errors;
-                break;
-            case Language.ESP:
-                resultsText.text = "Aciertos: " + encerts + "\nErrores: " + errors;
-                break;
+            answer.EnableButton();
         }
-        
+    }
+
+    private List<AnswerController> AviableAnswers()
+    {
+        List<AnswerController> aviableAnswers = new List<AnswerController>();
+
+        foreach (AnswerController answer in buttonAnswers)
+            if (answer.IsOn())
+                aviableAnswers.Add(answer);
+
+        return aviableAnswers;
     }
 }

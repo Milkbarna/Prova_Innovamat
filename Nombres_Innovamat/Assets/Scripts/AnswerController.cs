@@ -4,15 +4,7 @@ using UnityEngine.UI;
 
 public class AnswerController : MonoBehaviour
 {
-    [SerializeField]
-    private Text text;
     private Button button;
-    private Image image;
-    private RectTransform rectTransform;
-
-    [SerializeField]
-    private AnimationCurve animLerp;
-    private UIAnim anim;
     
     private GameController gc;
 
@@ -21,20 +13,17 @@ public class AnswerController : MonoBehaviour
 
     private bool on;
 
-    private Vector3 originalScale;
+    private NumberView view;
 
     void Start()
     {
         gc = FindObjectOfType<GameController>();
-        rectTransform = this.GetComponent<RectTransform>();
+
         button = this.GetComponent<Button>();
-        image = this.GetComponent<Image>();
+        view = this.GetComponent<NumberView>();
 
         button.enabled = false;
-        image.color = Color.white;
-        originalScale = rectTransform.localScale;
-
-        anim = new ScaleAnim(rectTransform);
+        view.ChangeColor(Color.white);
 
         on = false;
     }
@@ -43,11 +32,14 @@ public class AnswerController : MonoBehaviour
     {
         num = info;
         button.enabled = false;
-        image.color = Color.white;
 
-        text.text = info.num.ToString();
+        view.Set(info);
+        view.Display();
+        view.ChangeColor(Color.white);
+
         on = true;
-        StartCoroutine(anim.Execute(animLerp, new Vector3(1, 1, 1), 1, 0, true, EnableButton));
+
+        view.Show(EnableButton);
     }
 
     public void EnableButton()
@@ -66,9 +58,8 @@ public class AnswerController : MonoBehaviour
         {
             button.enabled = false;
             on = false;
-            StartCoroutine(anim.Execute(animLerp, new Vector3(1,1,1), 1, 0, false, null));
+            view.Hide();
         }
-        
     }
 
     public void AnswerClick()
@@ -76,19 +67,20 @@ public class AnswerController : MonoBehaviour
         gc.Answer(this);
     }
 
-    public void DisplayColor(Color color)
-    {
-        image.color = color;
-    }
-
     public bool IsOn()
     {
         return on;
     }
 
-    public void SetOriginalSize()
+    public void DisplayAsCorrect()
     {
-        rectTransform.localScale = originalScale;
-        on = false;
+        view.ChangeColor(Color.green);
+        HideNumber();
+    }
+
+    public void DisplayAsError()
+    {
+        view.ChangeColor(Color.red);
+        HideNumber();
     }
 }

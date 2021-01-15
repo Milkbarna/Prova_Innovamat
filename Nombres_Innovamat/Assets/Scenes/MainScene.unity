@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd44d50586d73694ab8d6903b643f2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resultsText: {fileID: 1741869470}
+  score: {fileID: 1741869472}
   numText: {fileID: 1174932219}
   buttonAnswers:
   - {fileID: 215922276}
@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 215922274}
   - component: {fileID: 215922273}
   - component: {fileID: 215922276}
+  - component: {fileID: 215922277}
   m_Layer: 5
   m_Name: ButtonLeft
   m_TagString: Untagged
@@ -471,6 +472,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &215922277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215922271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599b9796ce0bb54985fb7a764c56bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   text: {fileID: 1461265825}
   animLerp:
     serializedVersion: 2
@@ -487,8 +500,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.7
       value: 1.2
-      inSlope: 0.5905676
-      outSlope: 0.5905676
+      inSlope: 0.593534
+      outSlope: 0.593534
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -505,6 +518,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  growSize: {x: 1, y: 1, z: 1}
+  duration: 1
+  delayAfter: 1
 --- !u!1 &250515205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentText: {fileID: 341295098}
-  langButtons:
+  buttons:
   - {fileID: 994576582}
   - {fileID: 1576379138}
   - {fileID: 740920426}
@@ -1498,6 +1514,7 @@ GameObject:
   - component: {fileID: 1124291955}
   - component: {fileID: 1124291954}
   - component: {fileID: 1124291957}
+  - component: {fileID: 1124291958}
   m_Layer: 5
   m_Name: ButtonRight
   m_TagString: Untagged
@@ -1628,6 +1645,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1124291958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124291952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599b9796ce0bb54985fb7a764c56bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   text: {fileID: 1402607990}
   animLerp:
     serializedVersion: 2
@@ -1644,8 +1673,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.7
       value: 1.2
-      inSlope: 0.50000477
-      outSlope: 0.50000477
+      inSlope: 0.593534
+      outSlope: 0.593534
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -1662,6 +1691,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  growSize: {x: 1, y: 1, z: 1}
+  duration: 1
+  delayAfter: 1
 --- !u!1 &1174932215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,6 +1706,7 @@ GameObject:
   - component: {fileID: 1174932218}
   - component: {fileID: 1174932217}
   - component: {fileID: 1174932219}
+  - component: {fileID: 1174932220}
   m_Layer: 5
   m_Name: NumText
   m_TagString: Untagged
@@ -1753,23 +1786,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bf7d9b4519f7d4ea2b947d077efabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  view: {fileID: 0}
+--- !u!114 &1174932220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174932215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d2567d0ab68a3459ecb5e120747966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1174932217}
   animLerp:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.8
+      time: 0.7
       value: 1.2
-      inSlope: 0.7598252
-      outSlope: 0.7598252
+      inSlope: 0.81496763
+      outSlope: 0.81496763
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -1786,6 +1833,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  growSize: {x: 1, y: 1, z: 1}
+  duration: 2
+  delayAfter: 2
 --- !u!1 &1339188855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,6 +1927,7 @@ GameObject:
   - component: {fileID: 1384758113}
   - component: {fileID: 1384758112}
   - component: {fileID: 1384758115}
+  - component: {fileID: 1384758116}
   m_Layer: 5
   m_Name: ButtonMid
   m_TagString: Untagged
@@ -2007,6 +2058,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1384758116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384758110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9599b9796ce0bb54985fb7a764c56bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   text: {fileID: 40249365}
   animLerp:
     serializedVersion: 2
@@ -2023,8 +2086,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.7
       value: 1.2
-      inSlope: 0.7709534
-      outSlope: 0.7709534
+      inSlope: 0.593534
+      outSlope: 0.593534
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -2041,6 +2104,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  growSize: {x: 1, y: 1, z: 1}
+  duration: 1
+  delayAfter: 1
 --- !u!1 &1402607988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2404,7 @@ GameObject:
   - component: {fileID: 1741869469}
   - component: {fileID: 1741869471}
   - component: {fileID: 1741869470}
+  - component: {fileID: 1741869472}
   m_Layer: 5
   m_Name: ResultsText
   m_TagString: Untagged
@@ -2407,3 +2474,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741869468}
   m_CullTransparentMesh: 0
+--- !u!114 &1741869472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741869468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7be2ed4e1ea9d4794e07e61bc8488c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
