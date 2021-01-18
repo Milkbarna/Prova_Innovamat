@@ -8,6 +8,7 @@ public abstract class NumberView : MonoBehaviour
 {
     [SerializeField]
     protected Text text;
+    [SerializeField]
     protected Image image;
 
     [SerializeField]
@@ -26,7 +27,6 @@ public abstract class NumberView : MonoBehaviour
     void Start()
     {
         anim = new ScaleAnim(this.GetComponent<RectTransform>());
-        image = this.GetComponent<Image>();
     }
 
     public void Set(NumInfo info)

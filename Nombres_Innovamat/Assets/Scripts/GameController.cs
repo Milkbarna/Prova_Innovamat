@@ -110,3 +110,9 @@ public class GameController : MonoBehaviour
         return aviableAnswers;
     }
 }
+
+public struct NumInfo
+{
+    public string text;
+    public int num;
+}

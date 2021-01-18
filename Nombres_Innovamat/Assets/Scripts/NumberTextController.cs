@@ -7,12 +7,8 @@ public class NumberTextController : MonoBehaviour
     [SerializeField]
     private GameController gc;
 
+    [SerializeField]
     private NumberView view;
-
-    void Start()
-    {        
-        view = this.GetComponent<NumberView>();
-    }
 
     public void DisplayNumber(NumInfo info)
     {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreController : MonoBehaviour
 {
+    [SerializeField]
     private Text resultsText;
 
     private int encerts, errors;
@@ -13,8 +14,6 @@ public class ScoreController : MonoBehaviour
     {
         encerts = 0;
         errors = 0;
-
-        resultsText = this.GetComponent<Text>();
 
         UpdateResults();
     }
@@ -35,13 +34,13 @@ public class ScoreController : MonoBehaviour
     {
         switch (LanguageSingleton.Instance.currentLanguage)
         {
-            case Language.CAT:
+            case LanguageType.CAT:
                 resultsText.text = "Encerts: " + encerts + "\nErrades: " + errors;
                 break;
-            case Language.ENG:
+            case LanguageType.ENG:
                 resultsText.text = "Right: " + encerts + "\nWrong: " + errors;
                 break;
-            case Language.ESP:
+            case LanguageType.ESP:
                 resultsText.text = "Aciertos: " + encerts + "\nErrores: " + errors;
                 break;
         }

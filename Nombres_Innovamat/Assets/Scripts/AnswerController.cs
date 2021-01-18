@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class AnswerController : MonoBehaviour
 {
+    [SerializeField]
     private Button button;
 
     [SerializeField]
@@ -14,13 +15,11 @@ public class AnswerController : MonoBehaviour
 
     private bool on;
 
+    [SerializeField]
     private NumberView view;
 
     void Start()
     {
-        button = this.GetComponent<Button>();
-        view = this.GetComponent<NumberView>();
-
         button.enabled = false;
         view.ChangeColor(Color.white);
 

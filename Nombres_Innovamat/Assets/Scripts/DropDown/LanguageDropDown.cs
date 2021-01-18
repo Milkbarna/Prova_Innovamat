@@ -18,7 +18,7 @@ public class LanguageDropDown : DropDown
     }
 
     public override void ChangeTo(int elem) {
-        LanguageSingleton.Instance.currentLanguage = (Language)elem;
+        LanguageSingleton.Instance.currentLanguage = (LanguageType)elem;
 
         SceneManager.LoadScene("MainScene");
     }

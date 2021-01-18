@@ -6,7 +6,7 @@ public class LanguageSingleton : MonoBehaviour
 {
     private static LanguageSingleton instance;
 
-    public Language currentLanguage;
+    public LanguageType currentLanguage;
 
     void Awake() //Do not destroy this GameObject
     {
@@ -17,4 +17,11 @@ public class LanguageSingleton : MonoBehaviour
     {
         get { return instance ?? (instance = new GameObject("LanguageSingleton").AddComponent<LanguageSingleton>()); }
     }
+}
+
+public enum LanguageType
+{
+    CAT,
+    ESP,
+    ENG
 }
