@@ -472,7 +472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 215922273}
   gc: {fileID: 38013013}
+  view: {fileID: 215922277}
 --- !u!114 &215922277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1461265825}
+  image: {fileID: 215922274}
   animLerp:
     serializedVersion: 2
     m_Curve:
@@ -1646,7 +1649,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 1124291954}
   gc: {fileID: 38013013}
+  view: {fileID: 1124291958}
 --- !u!114 &1124291958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,6 +1665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1402607990}
+  image: {fileID: 1124291955}
   animLerp:
     serializedVersion: 2
     m_Curve:
@@ -1789,6 +1795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc: {fileID: 38013013}
+  view: {fileID: 1174932220}
 --- !u!114 &1174932220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1802,6 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1174932217}
+  image: {fileID: 0}
   animLerp:
     serializedVersion: 2
     m_Curve:
@@ -2060,7 +2068,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8969b4d5eef49b95f611f8afda61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 1384758112}
   gc: {fileID: 38013013}
+  view: {fileID: 1384758116}
 --- !u!114 &1384758116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2074,6 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 40249365}
+  image: {fileID: 1384758113}
   animLerp:
     serializedVersion: 2
     m_Curve:
